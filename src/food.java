@@ -34,64 +34,49 @@ public class food {
 
     //add getters and setters
 
-    // public int getX(){
-    //   return x;
-    // }
-    // public int getY(){
-    //   return y;
-    // }
-    // public ImageIcon getPic(){
-    //   return pic;
-    // }
-    // public int getW(){
-    //   return width;
-    // }
-    // public int getH(){
-    //   return height;
-    // }
+    public int getX(){
+       return x;
+    }
+   public int getY(){
+       return y;
+     }
+     public ImageIcon getPic(){
+       return pic;
+     }
+     public int getW(){
+       return width;
+    }
+   public int getH(){
+       return height;
+    }
 
-    // public void setX(int xV){
-    //   x=xV;
-    // }
-    // public void setY(int yV){
-    //   y=yV;
-    // }
+     public void setX(int xV){
+     x=xV;
+     }
+    public void setY(int yV){
+      y=yV;
+     }
 
     
 
-    public int getX(){
-        return x;
-    }
-    public void setX(int value) {
-        this.x = value;
-    }
-
-    public int getY() {
-      return this.y;
-    }
-    public void setY(int value) {
-      this.y = value;
-    }
-
-    public int getW() {
-      return this.width;
-    }
+   
     public void setW(int value) {
       this.width = value;
     }
 
-    public int getH() {
-      return this.height;
-    }
+ 
     public void setHeight(int value) {
       this.height = value;
     }
 
-    public ImageIcon getPic() {
-      return this.pic;
-    }
+  
     public void setPic(ImageIcon value) {
       this.pic = value;
+    }
+
+    public boolean Collision(Pictures b) {
+      return getX()+getW()>=b.getX()&&getX()+getW()<=b.getX()+b.getW()&&
+          getY()+getH()>=b.getY() &&getY()<=b.getY()+b.getH();
     }
 }
 

@@ -48,11 +48,9 @@ public class Game extends JPanel implements Runnable,KeyListener{
 		
 
 		ArrayList <food> temp = new ArrayList <food>();
-		int y=((int)(Math.random()*600+1));
-		int x=((int)(Math.random()*800+1));
 		for (int i=0; i<2; i++) {
 			for(int j=0; j<5; j++) {
-				temp.add(new food(x,y));
+				temp.add(new food(((int)(Math.random()*800+1)),((int)(Math.random()*600+1))));
 			}
 		}
 		return temp;
@@ -89,8 +87,11 @@ public class Game extends JPanel implements Runnable,KeyListener{
 	g2d.drawImage(new ImageIcon(aligator.getPic()).getImage(),aligator.getX(), aligator.getY(), aligator.getW(), aligator.getH(),this);
 	g2d.drawImage(new ImageIcon(fish.getPic()).getImage(),fish.getX(), fish.getY(), fish.getW(),fish.getH(),this);
 	g2d.setColor(Color.YELLOW);
-	g2d.drawImage(new ImageIcon("fishflakes.png").getImage(), fishFlakes.getX(),fishFlakes.getY(),fishFlakes.getW(),fishFlakes.getH(), this);
-	g2d.setFont(new Font("chiller", Font.BOLD,54));
+	
+	for (food flake : fishFlakes) {
+		g2d.drawImage(new ImageIcon("fishflakes.png").getImage(), flake.getX(), flake.getY(),flake.getW(),flake.getH(), this);
+		
+	}
 
 
 g2d.drawString(new DecimalFormat("#0.00").format(curtime),20,30);
@@ -125,20 +126,21 @@ g2d.drawString(new DecimalFormat("#0.00").format(curtime),20,30);
 
 		move();
 		
-	
-	if(fishflakes.Collision(fish)) {
-	foodeaten=foodeaten+1;
-	fishflakes.remove;
-	System.out.println(foodeaten);
-		if(lose)
-		{
-		p.playmusic("success-fanfare-trumpets-6185.wav");
-		lose=false;
+	for (int j = 0; j < fishFlakes.size(); j++)
+		if(fishFlakes.get(j).Collision(fish)) {
+		foodeaten=foodeaten+1;
+		fishFlakes.remove(fishFlakes.get(j));
+		j--;
+		System.out.println(foodeaten);
+			if(lose)
+			{
+			p.playmusic("success-fanfare-trumpets-6185.wav");
+			lose=false;
 
 
+			}
+			
 		}
-		
-	}
 	else move();
 
 		}

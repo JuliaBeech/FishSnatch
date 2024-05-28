@@ -122,14 +122,15 @@ public Pictures (int w, int h) {
 
 
  public void move() {
-	 x+=dx;
-	 if(x+width>800)
-		 x=800-width;
+	if (x+dx >= 800 || x<0)
+	dx*=-1;
+	if ((y+dy >= 600) || (y+dy<=0))
+	dy*=-1;
+y+=dy;
+ x += dx;	 
  
  
- y+=dy;
- if(y+width>600)
-	 y=600-width;
+ 
 }
  public boolean Collision(Pictures b) {
 		return getX()+getW()>=b.getX()&&getX()+getW()<=b.getX()+b.getW()&&
