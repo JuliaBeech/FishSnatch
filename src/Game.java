@@ -35,8 +35,8 @@ public class Game extends JPanel implements Runnable,KeyListener{
 		r1=new Box();
 		r2=new Box(400, 300, 70, 90, 2, 1);
 		bi = new Pictures("swamp.jpg",0,0,800,600);
-		aligator= new Pictures("alligator.png",300,100,100,100);
-		fish= new Pictures("fish.png",100,100,2,2,50,50,false,false);
+		aligator= new Pictures("alligator.png",300,600,100,100);
+		fish= new Pictures("fish.png",100,100,50,50,1.5,1.5);
 		begin=new Pictures("gator1.jpg",0,0,800,600);
 		key=-1;
 		fishFlakes= setfishFlakes();
@@ -113,7 +113,7 @@ public class Game extends JPanel implements Runnable,KeyListener{
 			
 				case 2:
 				g2d.setColor(Color.WHITE);
-				g2d.drawImage(new ImageIcon("swamp.png").getImage(), bi.getX(), bi.getY(),bi.getW(),bi.getH(), this);
+				g2d.drawImage(new ImageIcon("swamp.jpg").getImage(), bi.getX(), bi.getY(),bi.getW(),bi.getH(), this);
 		gatormove=true;
 			g2d.setFont(new Font("times new roman", Font.BOLD,25));
 			g2d.drawImage(new ImageIcon(aligator.getPic()).getImage(),aligator.getX(), aligator.getY(), aligator.getW(), aligator.getH(),this);
@@ -122,12 +122,17 @@ public class Game extends JPanel implements Runnable,KeyListener{
 				g2d.drawImage(new ImageIcon("fishflakes.png").getImage(), flake.getX(), flake.getY(),flake.getW(),flake.getH(), this);
 				
 			}
+			
 		
 			g2d.setColor(Color.WHITE);
 			g2d.setFont(new Font("times new roman", Font.BOLD,25));
 			//g2d.drawString(new DecimalFormat("#0.00").format(currtime),320,30);
 			//fish.move();
 			//aligator.move();
+			break;
+			case 3:
+			//case 3 stuff
+break;
 			}
 			
 	
@@ -164,7 +169,7 @@ g2d.drawString(new DecimalFormat("#0.00").format(curtime),20,30);
 		curtime=(System.currentTimeMillis()-time)/1000;
 
 		//move();
-		if(foodeaten==5){
+		if(foodeaten >0 &&foodeaten%5==0){
 	screen++;
 		}
 	for (int j = 0; j < fishFlakes.size(); j++)
@@ -191,7 +196,7 @@ g2d.drawString(new DecimalFormat("#0.00").format(curtime),20,30);
 	}
 	public void move() {
 		if(gatormove){
-			aligator.bounce();
+			aligator.move();
 		}
 	
 	//fish.move();
@@ -202,13 +207,13 @@ g2d.drawString(new DecimalFormat("#0.00").format(curtime),20,30);
 		key=e.getKeyCode();
 		System.out.println(key);
 		if (key==38)
-			fish.sety(-2);
+			fish.sety(-20);
 		if (key==40)
-			fish.sety(2);
+			fish.sety(20);
 		if (key==39)
-			fish.setx(2);
+			fish.setx(20);
 		if (key==37)
-			fish.setx(-2);
+			fish.setx(-20);
 			if (e.getKeyChar()=='p'){
 screen+=1;
 			}

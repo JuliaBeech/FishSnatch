@@ -1,9 +1,9 @@
 public class Pictures {
 	private String pic;
-	private int x;
-	private int y;
-	private int dx;
-	private int dy;
+	private double x;
+	private double y;
+	private double dx;
+	private double dy;
  private int width;
  private int height;
  private boolean movert;
@@ -20,12 +20,25 @@ public class Pictures {
 		movedn=false;
 		
 	}
+	public Pictures(String s,int x1, int y1,int w1,int h1, double dx, double dy) {
+		pic=s;
+		x=x1;
+		y=y1;
+		this.dx=dx;
+		this.dy=dy;
+		width=w1;
+		height=h1;
+		movert=false;
+		movedn=false;
+		
+		
+	}
 	public Pictures(String s,int x1, int y1,int w1,int h1) {
 		pic=s;
 		x=x1;
 		y=y1;
-		dx=1;
-		dy=1;
+		dx=.2;
+		dy=.2;
 		width=w1;
 		height=h1;
 		movert=false;
@@ -34,10 +47,10 @@ public class Pictures {
 		
 	}
 	public void setDx(int c) {
-		dx=c;
+		x+=c;
 	}
 	public void setDy(int c) {
-		dy=c;
+		y+=c;
 	}
 	
 	public Pictures(String s ,int x1, int y1, int dx1, int dy1, int w, int h, boolean r, boolean d) {
@@ -55,18 +68,18 @@ public class Pictures {
 		return pic;
 	}
 	public int getX() {
-		return x;
+		return (int)x;
 		
 	}
 	public int getY() {
-		return y;
+		return (int)y;
 		
 	}
-	public int getDX() {
+	public double getDX() {
 		return dx;
 		
 	}
-	public int getDY() {
+	public double getDY() {
 		return dy;
 		
 	}
@@ -126,8 +139,10 @@ public Pictures (int w, int h) {
 	dx*=-1;
 	if ((y+dy >= 600) || (y+dy<=0))
 	dy*=-1;
-y+=dy;
- x += dx;	 
+
+
+	y+=dy;
+ 	x += dx;	 
  
  
  
@@ -139,10 +154,14 @@ y+=dy;
 	}
 public void sety(int i) {
 	// TODO Auto-generated method stub
-y+=i;}
+y+=i;
+System.out.println(y);
+}
 public void setx(int i) {
     // TODO Auto-generated method stub
-x+=i;}
+x+=i;
+
+}
 	 
 	}
 
