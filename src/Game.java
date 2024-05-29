@@ -1,14 +1,13 @@
 
 
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 import java.util.*;
 
-//testttt
+
 public class Game extends JPanel implements Runnable,KeyListener{
 	private BufferedImage back;
 	
