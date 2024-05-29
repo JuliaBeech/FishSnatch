@@ -43,6 +43,7 @@ public class food {
      public ImageIcon getPic(){
        return pic;
      }
+     
      public int getW(){
        return width;
     }

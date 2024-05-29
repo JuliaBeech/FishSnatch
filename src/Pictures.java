@@ -24,8 +24,8 @@ public class Pictures {
 		pic=s;
 		x=x1;
 		y=y1;
-		dx=0;
-		dy=0;
+		dx=1;
+		dy=1;
 		width=w1;
 		height=h1;
 		movert=false;
@@ -132,10 +132,17 @@ y+=dy;
  
  
 }
+
  public boolean Collision(Pictures b) {
 		return getX()+getW()>=b.getX()&&getX()+getW()<=b.getX()+b.getW()&&
 				getY()+getH()>=b.getY() &&getY()<=b.getY()+b.getH();
 	}
+public void sety(int i) {
+	// TODO Auto-generated method stub
+y+=i;}
+public void setx(int i) {
+    // TODO Auto-generated method stub
+x+=i;}
 	 
 	}
 

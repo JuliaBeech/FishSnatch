@@ -31,8 +31,7 @@ public Box(int x1, int y1, int w, int h, int dx1, int dy1) {
 	height=h;
 	dx=dx1;
 	dy=dy1;
-	movert=true;
-	movedn=true;
+	
 }
 
 public Box (int w, int h, int dx1, int dy1) {
@@ -43,8 +42,7 @@ public Box (int w, int h, int dx1, int dy1) {
 	height=h;
 	dx=dx1;
 	dy=dy1;
-	movert=true;
-	movedn=true;
+
 }
 
 
@@ -55,6 +53,8 @@ public void setDy(int c) {
 	dy=c;
 }
 public void bounce() {
+	movert=true;
+	movedn=true;
 	if (movert) {
 		x+=dx;
 	}
@@ -79,12 +79,16 @@ public void bounce() {
 	}
 
 public void move() {
-	x+=dx;
-	if(x+width> 800)
-		x=800-width;
-	y+=dy;
-	if(y+height>600)
-		y=600-height;
+
+	if(x+width< 800 && x+width> 0){
+		x+=dx;	
+	}
+		//x=800-width;
+	
+	if(y+height<600 && y+height>0){
+		y+=dy;
+	}
+		//y=600-height;
 }
 
 
