@@ -18,10 +18,12 @@ public class Game extends JPanel implements Runnable,KeyListener{
 	private Pictures aligator;
 	private Pictures fish;
 	private Pictures bi;
+	private Pictures begin;
 	private boolean lose,win;
 	private Sound p;
 	private double time;
 	private double curtime; 
+	private char screen;
 	private int foodeaten;
 	private ArrayList <food> fishFlakes;
 	
@@ -34,11 +36,14 @@ public class Game extends JPanel implements Runnable,KeyListener{
 		bi = new Pictures("swamp.jpg",0,0,800,600);
 		aligator= new Pictures("alligator.png",700,100,100,100);
 		fish= new Pictures("fish.png",100,100,2,2,100,100,false,false);
+		begin=new Pictures("gator1.jpg",0,0,800,600);
 		key=-1;
 		fishFlakes= setfishFlakes();
 		p= new Sound();
 		//p.playmusic("success-fanfare-trumpets-6185");
 		lose=true;
+		screen='S';
+
 		win=false;
 		time=System.currentTimeMillis();
 		curtime=0;
@@ -81,22 +86,51 @@ public class Game extends JPanel implements Runnable,KeyListener{
 		g2d.clearRect(0, 0, getSize().width, getSize().height);
 		
 		//START CODING GRAPHICS HERE
-		g2d.drawImage(new ImageIcon(bi.getPic()).getImage(),bi.getX(),bi.getY(),bi.getW(),bi.getH(),this);
-		
+	
 
-	g2d.drawImage(new ImageIcon(aligator.getPic()).getImage(),aligator.getX(), aligator.getY(), aligator.getW(), aligator.getH(),this);
-	g2d.drawImage(new ImageIcon(fish.getPic()).getImage(),fish.getX(), fish.getY(), fish.getW(),fish.getH(),this);
+
 	g2d.setColor(Color.YELLOW);
 	
-	for (food flake : fishFlakes) {
-		g2d.drawImage(new ImageIcon("fishflakes.png").getImage(), flake.getX(), flake.getY(),flake.getW(),flake.getH(), this);
-		
+	
+	screen(g2d);
+	twoDgraph.drawImage(back, 0, 0, null);
 	}
 
+	public void screen(Graphics g2d) {
+		switch(screen) {
+		case 'S':
+		g2d.drawImage(new ImageIcon("gator1.png").getImage(), begin.getX(), begin.getY(),begin.getW(),begin.getH(), this);
+	
+			drawStartScreen(g2d);
+			
+			break;
+		
+			
+				case 'G':
+				g2d.setColor(Color.WHITE);
+				g2d.drawImage(new ImageIcon("swamp.png").getImage(), bi.getX(), bi.getY(),bi.getW(),bi.getH(), this);
+		
+			g2d.setFont(new Font("times new roman", Font.BOLD,25));
+			g2d.drawImage(new ImageIcon(aligator.getPic()).getImage(),aligator.getX(), aligator.getY(), aligator.getW(), aligator.getH(),this);
+			g2d.drawImage(new ImageIcon(fish.getPic()).getImage(),fish.getX(), fish.getY(), fish.getW(),fish.getH(),this);
+			for (food flake : fishFlakes) {
+				g2d.drawImage((new ImageIcon("fishflakes.png")).getImage(), flake.getX(), flake.getY(),flake.getW(),flake.getH(), this);
+				
+			}
+		
+			g2d.setColor(Color.WHITE);
+			g2d.setFont(new Font("times new roman", Font.BOLD,25));
+			//g2d.drawString(new DecimalFormat("#0.00").format(currtime),320,30);
+			fish.move();
+			aligator.bounce();
+			}
+			
+	
+			
 
 g2d.drawString(new DecimalFormat("#0.00").format(curtime),20,30);
 
-		if(aligator.Collision(fish))
+		if(fish.Collision(aligator))
 	{
 		g2d.setFont(new Font("chiller", Font.BOLD,54));
 		g2d.drawString("GAMEOVER,", 300,300);
@@ -131,7 +165,7 @@ g2d.drawString(new DecimalFormat("#0.00").format(curtime),20,30);
 		foodeaten=foodeaten+1;
 		fishFlakes.remove(fishFlakes.get(j));
 		j--;
-		System.out.println(foodeaten);
+		
 			if(lose)
 			{
 			p.playmusic("success-fanfare-trumpets-6185.wav");
@@ -141,11 +175,11 @@ g2d.drawString(new DecimalFormat("#0.00").format(curtime),20,30);
 			}
 			
 		}
+		
 	else move();
-
-		}
+	System.out.println(foodeaten);
+	}
 	//This line tells the program to draw everything above. If you delete
-		twoDgraph.drawImage(back, 0, 0, null);
 	}
 	public void move() {
 		aligator.bounce();
@@ -164,6 +198,9 @@ g2d.drawString(new DecimalFormat("#0.00").format(curtime),20,30);
 			fish.setDx(2);
 		if (key==37)
 			fish.setDx(-2);
+			if (e.getKeyChar()=='p'){
+screen='G';
+			}
 		
 		
 	}
@@ -173,6 +210,15 @@ g2d.drawString(new DecimalFormat("#0.00").format(curtime),20,30);
 			fish.setDy(0);
 		if (key==37||key==39)
 			fish.setDx(0);
+	}
+	public void drawStartScreen(Graphics g2d) {
+		//create start screen
+		g2d.setFont(new Font("Century", Font.BOLD, 50));
+		g2d.setColor(Color.blue);
+		g2d.drawString("Welcome to Fish Grab!", 100, 200);
+		g2d.drawString("Press P to Start", 100, 400);
+		g2d.drawString("Use your arrow keys to control the fish!", 100, 600);
+		
 	}
 	
 	
