@@ -172,6 +172,8 @@ public class Game extends JPanel implements Runnable, KeyListener {
 				break;
 			case 5:
 				drawWinScreen(g2d);
+			case 6:
+				drawLoseScreen(g2d);
 		}
 
 		g2d.drawString(new DecimalFormat("#0.00").format(curtime), 20, 40);
@@ -179,6 +181,7 @@ public class Game extends JPanel implements Runnable, KeyListener {
 		if (fish.Collision(aligator)) {
 			g2d.setFont(new Font("chiller", Font.BOLD, 54));
 			g2d.drawString("GAMEOVER", 300, 300);
+			//screen=6;
 			if (lose) {
 				p.playmusic("violin-lose-1-175615.wav");
 				lose = false;
