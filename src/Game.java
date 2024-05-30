@@ -17,7 +17,7 @@ public class Game extends JPanel implements Runnable, KeyListener {
 	private Pictures bi;
 	private Pictures level3;
 	private Pictures begin;
-	private boolean lose, win;
+	private boolean lose, win,lostscreen;
 	private Sound p;
 	private double time;
 	private double curtime;
@@ -49,13 +49,14 @@ public class Game extends JPanel implements Runnable, KeyListener {
 		time = System.currentTimeMillis();
 		curtime = 0;
 		gatormove = false;
+		lostscreen=false;
 	}
 
 	public ArrayList<food> setfishFlakes() {
 
 		ArrayList<food> temp = new ArrayList<food>();
 
-		for (int i = 20; i > 0; i--) {
+		for (int i = 35; i > 0; i--) {
 
 			temp.add(new food(((int) (Math.random() * 801)), ((int) (Math.random() * 601))));
 
@@ -96,7 +97,23 @@ public class Game extends JPanel implements Runnable, KeyListener {
 		twoDgraph.drawImage(back, 0, 0, null);
 	}
 
+	public void lose(Graphics g2d){
+		g2d.setFont(new Font("chiller", Font.BOLD, 54));
+		g2d.drawString("GAMEOVER", 300, 300);
+		//screen=6;
+		lostscreen=true;
+		if (lose) {
+			p.playmusic("violin-lose-1-175615.wav");
+			lose = false;
+			curtime = (System.currentTimeMillis() - time) / 1000;
+
+		}
+	}
 	public void screen(Graphics g2d) {
+		if (fish.Collision(aligator) ||lostscreen || curtime>45) {
+		lose(g2d);
+		}
+		else{
 		switch (screen) {
 			case 1:
 				g2d.drawImage(new ImageIcon("gator1.png").getImage(), begin.getX(), begin.getY(), begin.getW(),
@@ -109,6 +126,7 @@ public class Game extends JPanel implements Runnable, KeyListener {
 			case 2:
 				g2d.setColor(Color.WHITE);
 				g2d.drawImage(new ImageIcon("swamp.jpg").getImage(), bi.getX(), bi.getY(), bi.getW(), bi.getH(), this);
+				g2d.drawString("Welcome to the Swamp! Get five fish food to move on!",200,100);
 				gatormove = true;
 				g2d.setFont(new Font("times new roman", Font.BOLD, 25));
 				g2d.drawImage(new ImageIcon(aligator.getPic()).getImage(), aligator.getX(), aligator.getY(),
@@ -123,7 +141,7 @@ public class Game extends JPanel implements Runnable, KeyListener {
 
 				g2d.setColor(Color.WHITE);
 				g2d.setFont(new Font("times new roman", Font.BOLD, 25));
-				// g2d.drawString(new DecimalFormat("#0.00").format(currtime),320,30);
+				 g2d.drawString("You've eaten " +foodeaten,320,30);
 				// fish.move();
 				// aligator.move();
 				break;
@@ -142,6 +160,7 @@ public class Game extends JPanel implements Runnable, KeyListener {
 				for (food flake : fishFlakes) {
 					g2d.drawImage(new ImageIcon("fishflakes.png").getImage(), flake.getX(), flake.getY(), flake.getW(),
 							flake.getH(), this);
+							g2d.drawString("Try to catch 10 more fish!!", 300, 300);
 
 				}
 
@@ -163,6 +182,7 @@ public class Game extends JPanel implements Runnable, KeyListener {
 				for (food flake : fishFlakes) {
 					g2d.drawImage(new ImageIcon("fishflakes.png").getImage(), flake.getX(), flake.getY(), flake.getW(),
 							flake.getH(), this);
+							g2d.drawString("You're at Fish Lake!! Grab 15 more fish to win!", 200,100);
 
 				}
 
@@ -178,19 +198,9 @@ public class Game extends JPanel implements Runnable, KeyListener {
 
 		g2d.drawString(new DecimalFormat("#0.00").format(curtime), 20, 40);
 
-		if (fish.Collision(aligator)) {
-			g2d.setFont(new Font("chiller", Font.BOLD, 54));
-			g2d.drawString("GAMEOVER", 300, 300);
-			//screen=6;
-			if (lose) {
-				p.playmusic("violin-lose-1-175615.wav");
-				lose = false;
-				curtime = (System.currentTimeMillis() - time) / 1000;
+		
 
-			}
-		}
-
-		else if (win) {
+		if (win) {
 			g2d.setFont(new Font("chiller", Font.BOLD, 54));
 			g2d.drawString("You won!,", 300, 300);
 
@@ -232,6 +242,7 @@ public class Game extends JPanel implements Runnable, KeyListener {
 					move();
 			System.out.println(foodeaten);
 		}
+	}
 		// This line tells the program to draw everything above. If you delete
 	}
 
@@ -249,6 +260,7 @@ public class Game extends JPanel implements Runnable, KeyListener {
 	public void keyPressed(KeyEvent e) {
 		key = e.getKeyCode();
 		System.out.println(key);
+		if(!lostscreen){
 		if (key == 38)
 			fish.sety(-20);
 		if (key == 40)
@@ -263,7 +275,7 @@ public class Game extends JPanel implements Runnable, KeyListener {
 		if (key == 32) {
 			foodeaten++;
 		}
-
+	}
 	}
 
 	public void keyReleased(KeyEvent e) {

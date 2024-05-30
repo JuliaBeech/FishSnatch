@@ -37,8 +37,8 @@ public class Pictures {
 		pic=s;
 		x=x1;
 		y=y1;
-		dx=.2;
-		dy=.2;
+		dx=.05;
+		dy=.05;
 		width=w1;
 		height=h1;
 		movert=false;
