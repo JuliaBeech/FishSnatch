@@ -57,7 +57,7 @@ public class Game extends JPanel implements Runnable,KeyListener{
 		ArrayList <food> temp = new ArrayList <food>();
 	
 	
-		for (int i=10; i>0; i--) {
+		for (int i=20; i>0; i--) {
 
 					temp.add(new food(((int)(Math.random()*801)),((int)(Math.random()*601))));
 			
@@ -132,18 +132,35 @@ public class Game extends JPanel implements Runnable,KeyListener{
 			break;
 			case 3:
 			//case 3 stuff
+			g2d.drawImage(new ImageIcon(fish.getPic()).getImage(), bi.getX(), bi.getY(),bi.getW(),bi.getH(), this);
+
+			g2d.setColor(Color.WHITE);
+	gatormove=true;
+		g2d.setFont(new Font("times new roman", Font.BOLD,25));
+		g2d.drawImage(new ImageIcon(aligator.getPic()).getImage(),aligator.getX(), aligator.getY(), aligator.getW(), aligator.getH(),this);
+		g2d.drawImage(new ImageIcon(fish.getPic()).getImage(),fish.getX(), fish.getY(), fish.getW(),fish.getH(),this);
+		for (food flake : fishFlakes) {
+			g2d.drawImage(new ImageIcon("fishflakes.png").getImage(), flake.getX(), flake.getY(),flake.getW(),flake.getH(), this);
+			
+		}
+		
+	
+		g2d.setColor(Color.WHITE);
+		g2d.setFont(new Font("times new roman", Font.BOLD,25));
+
+
 break;
 			}
 			
 	
 			
 
-g2d.drawString(new DecimalFormat("#0.00").format(curtime),20,30);
+g2d.drawString(new DecimalFormat("#0.00").format(curtime),20,40);
 
 		if(fish.Collision(aligator))
 	{
 		g2d.setFont(new Font("chiller", Font.BOLD,54));
-		g2d.drawString("GAMEOVER,", 300,300);
+		g2d.drawString("GAMEOVER", 300,300);
 		if(lose)
 			{
 			p.playmusic("violin-lose-1-175615.wav");
@@ -171,6 +188,9 @@ g2d.drawString(new DecimalFormat("#0.00").format(curtime),20,30);
 		//move();
 		if(foodeaten >0 &&foodeaten%5==0){
 	screen++;
+	foodeaten=0;
+	fishFlakes= setfishFlakes();
+
 		}
 	for (int j = 0; j < fishFlakes.size(); j++)
 		if(fishFlakes.get(j).Collision(fish)) {
@@ -185,6 +205,7 @@ g2d.drawString(new DecimalFormat("#0.00").format(curtime),20,30);
 			lose=false;
 
 
+
 			}
 			
 		}
@@ -195,7 +216,7 @@ g2d.drawString(new DecimalFormat("#0.00").format(curtime),20,30);
 	//This line tells the program to draw everything above. If you delete
 	}
 	public void move() {
-		if(gatormove){
+		if((gatormove)&&(lose==false)){
 			aligator.move();
 		}
 	
@@ -227,10 +248,17 @@ screen+=1;
 	public void drawStartScreen(Graphics g2d) {
 		//create start screen
 		g2d.setFont(new Font("Century", Font.BOLD, 50));
-		g2d.setColor(Color.blue);
-		g2d.drawString("Welcome to Fish Grab!", 100, 200);
-		g2d.drawString("Press P to Start", 100, 400);
+		g2d.setColor(Color.white);
+		g2d.drawString("Welcome to Fish Snatch!", 100, 200);
+		g2d.drawString("Press P to Start", 200, 400);
 		g2d.drawString("Use your arrow keys to control the fish!", 100, 600);
+		
+	}
+	public void drawLoseScreen(Graphics g2d){
+		//create lose screen
+		g2d.setFont(new Font("Century", Font.BOLD, 50));
+		g2d.setColor(Color.blue);
+		g2d.drawString("You lost!!",200,200);
 		
 	}
 	
