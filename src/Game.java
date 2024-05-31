@@ -166,7 +166,8 @@ public class Game extends JPanel implements Runnable, KeyListener {
 
 				g2d.setColor(Color.WHITE);
 				g2d.setFont(new Font("times new roman", Font.BOLD, 25));
-
+		
+				 g2d.drawString("You've eaten " +foodeaten,320,30);
 				break;
 			case 4:
 				g2d.drawImage(new ImageIcon(level3.getPic()).getImage(), level3.getX(), level3.getY(), level3.getW(),
@@ -186,16 +187,17 @@ public class Game extends JPanel implements Runnable, KeyListener {
 
 				}
 
-				g2d.setColor(Color.WHITE);
-				g2d.setFont(new Font("times new roman", Font.BOLD, 25));
 
+				 g2d.drawString("You've eaten " +foodeaten,320,30);
 				break;
 			case 5:
 				drawWinScreen(g2d);
+			
 			case 6:
 				drawLoseScreen(g2d);
 		}
 
+	
 		g2d.drawString(new DecimalFormat("#0.00").format(curtime), 20, 40);
 
 		
@@ -245,6 +247,17 @@ public class Game extends JPanel implements Runnable, KeyListener {
 	}
 		// This line tells the program to draw everything above. If you delete
 	}
+	public void resetGame() {
+		
+		lose = true;
+		screen = 1;
+		time = System.currentTimeMillis();
+		curtime = 0;
+		lostscreen = false;
+		fishFlakes = setfishFlakes(); 
+	foodeaten=0;
+	
+	}
 
 	public void move() {
 		if ((gatormove) && (lose == false)) {
@@ -272,6 +285,9 @@ public class Game extends JPanel implements Runnable, KeyListener {
 		if (e.getKeyChar() == 'p') {
 			screen += 1;
 		}
+		if(key==81){
+			resetGame();
+		}
 		if (key == 32) {
 			foodeaten++;
 		}
@@ -297,7 +313,7 @@ public class Game extends JPanel implements Runnable, KeyListener {
 		// create lose screen
 		g2d.setFont(new Font("Century", Font.BOLD, 50));
 		g2d.setColor(Color.blue);
-		g2d.drawString("You lost!!", 200, 200);
+		g2d.drawString("Press Q to Reset!", 300, 200);
 
 	}
 
@@ -305,6 +321,7 @@ public class Game extends JPanel implements Runnable, KeyListener {
 		g2d.setFont(new Font("Century", Font.BOLD, 50));
 		g2d.setColor(Color.white);
 		g2d.drawString("You won Fish Snatch!", 100, 200);
+		g2d.drawString("Press Q to Reset!", 300, 200);
 	}
 
 }
